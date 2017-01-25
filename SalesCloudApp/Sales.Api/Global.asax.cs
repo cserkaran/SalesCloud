@@ -2,13 +2,8 @@
 using Newtonsoft.Json.Serialization;
 using Sales.Api.App_Start;
 using Sales.Api.Core;
-using System;
-using System.Collections.Generic;
 using System.Data.Entity;
-using System.Linq;
-using System.Web;
 using System.Web.Http;
-using System.Web.Routing;
 
 namespace Sales.Api
 {

@@ -5,7 +5,8 @@ using System.Data.Entity.ModelConfiguration.Conventions;
 
 namespace Sales.Api.Core
 {
-    public class SalesDbContext : IdentityDbContext
+    public class SalesDbContext : IdentityDbContext<ApplicationUser, ApplicationRole, int,
+        ApplicationUserLogin, ApplicationUserRole, ApplicationUserClaim>
     {
         public SalesDbContext() : base("SalesDbContext")
         {
@@ -16,7 +17,16 @@ namespace Sales.Api.Core
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
+            base.OnModelCreating(modelBuilder);
+
             modelBuilder.Conventions.Remove<PluralizingTableNameConvention>();
+
+            modelBuilder.Entity<ApplicationUser>().ToTable("User");
+            modelBuilder.Entity<ApplicationRole>().ToTable("Role");
+            modelBuilder.Entity<ApplicationUserRole>().ToTable("UserRole");
+            modelBuilder.Entity<ApplicationUserLogin>().ToTable("UserLogin");
+            modelBuilder.Entity<ApplicationUserClaim>().ToTable("UserClaim");
+
 
             //one-to-many 
             modelBuilder.Entity<Product>()
@@ -24,6 +34,11 @@ namespace Sales.Api.Core
                         .WithMany(s => s.Products); // Sale entity includes many Product entities
 
 
+        }
+
+        public static SalesDbContext Create()
+        {
+            return new SalesDbContext();
         }
     }
 }

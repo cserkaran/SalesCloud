@@ -8,6 +8,5 @@ namespace Sales.Api.App_Start
         {
             config.Filters.Add(new AuthorizeAttribute());
         }
-
     }
 }

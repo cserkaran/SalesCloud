@@ -17,8 +17,9 @@ namespace Sales.Api.App_Start
         {
             var issuer = ConfigurationManager.AppSettings["issuer"];
             var secret = TextEncodings.Base64Url.Decode(ConfigurationManager.AppSettings["secret"]);
-            app.CreatePerOwinContext(() => new SalesDbContext());
-            app.CreatePerOwinContext(() => new SalesUserManager());
+            app.CreatePerOwinContext(SalesDbContext.Create);
+            app.CreatePerOwinContext<ApplicationUserManager>(ApplicationUserManager.Create);
+            app.CreatePerOwinContext<ApplicationRoleManager>(ApplicationRoleManager.Create);
 
             //Enabling Bearer Authentication/Authorization
             app.UseJwtBearerAuthentication(new JwtBearerAuthenticationOptions

@@ -4,6 +4,7 @@ using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using Microsoft.Owin.Security.OAuth;
 using Sales.Api.Core;
+using Sales.Api.Models;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
@@ -17,7 +18,7 @@ namespace Sales.Api.Identity
             context.OwinContext.Response.Headers.Add("Access-Control-Allow-Origin", new[] { "*" });
 
             var user = context.OwinContext.Get<SalesDbContext>().Users.FirstOrDefault(u => u.UserName == context.UserName);
-            if (!context.OwinContext.Get<SalesUserManager>().CheckPassword(user, context.Password))
+            if (!context.OwinContext.Get<ApplicationUserManager>().CheckPassword(user, context.Password))
             {
                 context.SetError("invalid_grant", "The user name or password is incorrect");
                 context.Rejected();
@@ -36,13 +37,13 @@ namespace Sales.Api.Identity
             return Task.FromResult<object>(null);
         }
 
-        private static ClaimsIdentity SetClaimsIdentity(OAuthGrantResourceOwnerCredentialsContext context, IdentityUser user)
+        private static ClaimsIdentity SetClaimsIdentity(OAuthGrantResourceOwnerCredentialsContext context, ApplicationUser user)
         {
             var identity = new ClaimsIdentity("JWT");
             identity.AddClaim(new Claim(ClaimTypes.Name, context.UserName));
             identity.AddClaim(new Claim("sub", context.UserName));
 
-            var userRoles = context.OwinContext.Get<SalesUserManager>().GetRoles(user.Id);
+            var userRoles = context.OwinContext.Get<ApplicationUserManager>().GetRoles(user.Id);
             foreach (var role in userRoles)
             {
                 identity.AddClaim(new Claim(ClaimTypes.Role, role));

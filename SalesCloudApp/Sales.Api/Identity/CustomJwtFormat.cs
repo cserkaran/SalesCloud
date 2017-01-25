@@ -4,7 +4,6 @@ using System.IdentityModel.Tokens;
 using Microsoft.Owin.Security;
 using Microsoft.Owin.Security.DataHandler.Encoder;
 using Thinktecture.IdentityModel.Tokens;
-using System.IdentityModel.Tokens.Jwt;
 
 namespace Sales.Api.Identity
 {
@@ -26,17 +25,15 @@ namespace Sales.Api.Identity
                 throw new ArgumentNullException(nameof(data));
             }
 
-            var securityKey = new Microsoft.IdentityModel.Tokens.SymmetricSecurityKey(_secret);
-            var signingCredentials = new Microsoft.IdentityModel.Tokens.SigningCredentials(
-                securityKey,
-                SecurityAlgorithms.HmacSha256Signature);
+            var signingKey = new HmacSigningCredentials(_secret);
+
 
             var issued = data.Properties.IssuedUtc;
             var expires = data.Properties.ExpiresUtc;
 
             return new JwtSecurityTokenHandler().WriteToken
-                (new JwtSecurityToken(_issuer, null, data.Identity.Claims, issued.Value.UtcDateTime, 
-                expires.Value.UtcDateTime, signingCredentials));
+                (new JwtSecurityToken(_issuer, "Any", data.Identity.Claims, issued.Value.UtcDateTime, 
+                expires.Value.UtcDateTime, signingKey));
         }
 
         public AuthenticationTicket Unprotect(string protectedText)

@@ -5,6 +5,8 @@ namespace Sales.Api.Models
 {
     public class Sale
     {
+        public int Id { get; set; }
+
         public DateTime TimeStamp { get; set; }
 
         public string Location { get; set; }
