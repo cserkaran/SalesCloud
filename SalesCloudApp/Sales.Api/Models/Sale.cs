@@ -1,5 +1,7 @@
-﻿using System;
+﻿using Sales.Api.Dtos;
+using System;
 using System.Collections.Generic;
+using System.Globalization;
 
 namespace Sales.Api.Models
 {
@@ -15,7 +17,7 @@ namespace Sales.Api.Models
 
         public IList<Product> Products { get; set; }
 
-        public int TotalSalesAmount { get; set; }
+        public decimal TotalSalesAmount { get; set; }
 
         public string Currency { get; set; }
 
@@ -24,6 +26,26 @@ namespace Sales.Api.Models
         public Sale()
         {
             Products = new List<Product>();
+        }
+
+        public static explicit operator SaleDto(Sale sale)
+        {
+            SaleDto saleDto = new SaleDto();
+
+            saleDto.TimeStamp = sale.TimeStamp;
+            saleDto.Location_Name = sale.Location;
+            saleDto.Sales_Person_Name = sale.SalesPersonName;
+
+            foreach (var product in sale.Products)
+            {
+                saleDto.Products.Add((ProductDto)product);
+            }
+
+            saleDto.Total_Sale_Amount = sale.TotalSalesAmount.ToString(CultureInfo.InvariantCulture);
+            saleDto.Currency = sale.Currency;
+            saleDto.Sale_Invoice_Number = sale.SaleInvoiceNumber;
+
+            return saleDto;
         }
 
     }

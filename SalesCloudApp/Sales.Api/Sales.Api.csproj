@@ -180,6 +180,9 @@
     <Compile Include="Core\ApplicationRoleStore.cs" />
     <Compile Include="Core\ApplicationUserManager.cs" />
     <Compile Include="Core\ApplicationUserStore.cs" />
+    <Compile Include="Dtos\DateRange.cs" />
+    <Compile Include="Dtos\ProductDto.cs" />
+    <Compile Include="Dtos\SaleDto.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -189,6 +192,7 @@
     <Compile Include="Migrations\201701252102183_AddPostClass.Designer.cs">
       <DependentUpon>201701252102183_AddPostClass.cs</DependentUpon>
     </Compile>
+    <Compile Include="ModelBinders\DateRangeModelBinder.cs" />
     <Compile Include="Models\ApplicationRole.cs" />
     <Compile Include="Models\ApplicationUserClaim.cs" />
     <Compile Include="Models\ApplicationUserLogin.cs" />
@@ -211,6 +215,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Binder\" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201701252102183_AddPostClass.resx">

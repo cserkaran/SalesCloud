@@ -1,5 +1,6 @@
 ﻿using Sales.Api.App_Start;
 using System.Web.Http;
+using System.Web.Http.Controllers;
 using System.Web.Http.Cors;
 
 namespace Sales.Api
@@ -20,8 +21,8 @@ namespace Sales.Api
             config.Routes.MapHttpRoute(
                 name: "DefaultApi",
                 routeTemplate: "api/{controller}/{id}",
-                defaults: new { id = RouteParameter.Optional }
-            );
+                defaults: new { id = RouteParameter.Optional });
+
         }
     }
 }
