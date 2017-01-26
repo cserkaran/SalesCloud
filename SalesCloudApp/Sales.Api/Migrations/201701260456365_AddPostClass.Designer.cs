@@ -13,7 +13,7 @@ namespace Sales.Api.Core
         
         string IMigrationMetadata.Id
         {
-            get { return "201701252102183_AddPostClass"; }
+            get { return "201701260456365_AddPostClass"; }
         }
         
         string IMigrationMetadata.Source

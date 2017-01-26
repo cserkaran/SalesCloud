@@ -9,7 +9,7 @@ namespace Sales.Api.Dtos
 
         public string Quantity { get; set; }
 
-        public string Product_Type { get; set; }
+        public string Product_Type { get; set; } = ProductType.Retail.ToString();
 
         public string Sale_Amount { get; set; }
 
