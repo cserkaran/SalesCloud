@@ -30,7 +30,7 @@ namespace Sales.Api.Core
                         TimeStamp = c.DateTime(nullable: false),
                         Location = c.String(),
                         SalesPersonName = c.String(),
-                        TotalSalesAmount = c.Int(nullable: false),
+                        TotalSalesAmount = c.Decimal(nullable: false, precision: 18, scale: 2),
                         Currency = c.String(),
                         SaleInvoiceNumber = c.String(),
                     })

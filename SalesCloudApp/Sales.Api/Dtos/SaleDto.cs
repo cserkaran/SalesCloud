@@ -38,7 +38,9 @@ namespace Sales.Api.Dtos
 
             foreach(var productDto in saleDto.Products)
             {
-                sale.Products.Add((Product)productDto);
+                var product = (Product)productDto;
+                product.Sale = sale;
+                sale.Products.Add(product);
             }
 
             sale.TotalSalesAmount = decimal.Parse(saleDto.Total_Sale_Amount,CultureInfo.InvariantCulture);

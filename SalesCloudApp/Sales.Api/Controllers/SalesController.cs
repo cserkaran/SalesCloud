@@ -33,7 +33,7 @@ namespace Sales.Api.Controllers
         }
 
         [HttpGet]
-        [Route("{range}")]
+        [Route("{dateRange}")]
         public async Task<IHttpActionResult> GetSalesInRange([ModelBinder(typeof(DateRangeModelBinder))]DateRange range)
         {
             using (var context = new SalesDbContext())
